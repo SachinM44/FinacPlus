@@ -2,12 +2,14 @@ const { default: mongoose } = require("mongoose");
 require('dotenv').config();
 
 mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 });
 
 const UserSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        default: mongoose.Types.ObjectId,
+        default: () => new mongoose.Types.ObjectId(), 
         index: true,
         unique: true
     },
